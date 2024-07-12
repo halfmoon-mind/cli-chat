@@ -1,16 +1,18 @@
 import {Text, useInput} from 'ink';
 import React, {useState} from 'react';
 
-export default function RoomComponent(handler: any) {
+export default function RoomScreen({
+	handler,
+}: {
+	handler: (text: string) => void;
+}) {
 	const [keyword, setKeyword] = useState('');
 	useInput(input => {
-		if (input === 'q') {
-			handler();
+		if (input === '\r') {
+			handler(keyword);
+		} else {
+			setKeyword(prevKeyword => prevKeyword + input);
 		}
-		if (input === '\n') {
-			setKeyword('');
-		}
-		setKeyword(prevKeyword => prevKeyword + input);
 	});
 	return (
 		<>
